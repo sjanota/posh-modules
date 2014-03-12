@@ -13,7 +13,30 @@ $env:PSModulePath = $env:PsModulePath + ";$modulesRepo"
 
 ## Installation
 
-To use this module simply add following lines to your profile file
+To use this module simply add following lines to your profile file when module folder is in your PSModulePath
 ```
 Import-Module GitOperations
 ```
+
+# Idea module
+
+## Installation
+
+To use this module simply add following lines to your profile file when module folder is in your PSModulePath
+```
+Import-Module Idea
+```
+
+# Gradle module
+
+## Installation
+
+To use this module simply add following lines to your profile file when module folder is in your PSModulePath
+```
+Import-Module Gradle -ArgumentList /path/to/folder/with/Gradle
+```
+where /path/to/folder/with/Gradle is path to folder where Gradle module is stored. It could be simply
+```
+Import-Module Gradle -ArgumentList "$modulesRepo"
+```
+when using variable $modulesRepo described at the begining.
