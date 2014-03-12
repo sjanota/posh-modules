@@ -67,7 +67,7 @@ function GitCommitPush($message, $branch = "master"){
 	GitCheckout($featureBranch)
 }
 function GitUpdate($branch = "master"){
-	$featureBranch = Get-Feature-Branch($branch)
+	$featureBranch = GetFeatureBranch($branch)
 	GitCheckout($branch)
 	GitPull "origin" $branch
 	GitCheckout($featureBranch)
