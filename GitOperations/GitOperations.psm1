@@ -12,7 +12,7 @@ Set-Alias gignore	GitIgnore
 Set-Alias ginit		GitFullInit
 
 # Variables
-$gitDefaultUsername = "sjanota"
+$gitDefaultUsername = "gituser"
 
 # Basic Git operations
 function GitStatus{
