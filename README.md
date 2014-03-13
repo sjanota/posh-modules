@@ -1,7 +1,7 @@
 PowerShell modules
 ==================
 
-# Before install
+## Before install
 
 Before installation of any module be sure, that path to folder with modules is in your PSModulesPath environmental variable. If cloning whole repo you can add following lines to your profile file:
 ```
@@ -9,27 +9,27 @@ $modulesRepo = "path/to/this/cloned/repo"
 $env:PSModulePath = $env:PsModulePath + ";$modulesRepo"
 ```
 
-# GitOperations module
+## GitOperations module
 
-## Installation
+### Installation
 
 To use this module simply add following lines to your profile file when module folder is in your PSModulePath
 ```
 Import-Module GitOperations
 ```
 
-# Idea module
+## Idea module
 
-## Installation
+### Installation
 
 To use this module simply add following lines to your profile file when module folder is in your PSModulePath
 ```
 Import-Module Idea
 ```
 
-# Gradle module
+## Gradle module
 
-## Installation
+### Installation
 
 To use this module simply add following lines to your profile file when module folder is in your PSModulePath
 ```
