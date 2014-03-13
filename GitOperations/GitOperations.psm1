@@ -7,6 +7,7 @@ Set-Alias gch		GitCheckout
 Set-Alias gcom		GitFullCommit
 Set-Alias gup		GitUpdate
 Set-Alias guser		SetUsername
+Set-Alias gcuser	SetCommitname
 Set-Alias ghclone	GitHubClone
 Set-Alias gignore	GitIgnore
 Set-Alias ginit		GitFullInit
