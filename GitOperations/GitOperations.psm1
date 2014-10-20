@@ -53,14 +53,14 @@ function GitSetOrigin{
 }
 
 # Complex Git scenarios
-function GitFullCommit([parameter(Mandatory=$true)]$branch ,[parameter(Mandatory=$true)]$message){	
+function GitFullCommit([parameter(Mandatory=$true)]$message, [parameter(Mandatory=$true)]$branch = "master"){	
 	$featureBranch = GetFeatureBranch($branch)
 	$username = $env:COMMITUSERNAME
 	GitCheckout($featureBranch)
 	GitCommit "-m" "${username}: $message"
 }
 function GitCommitPush($message, $branch = "master"){
-	if($message -ne $null){ GitFullCommit $branch $message }
+	if($message -ne $null){ GitFullCommit $message $branch }
 	$featureBranch = GetFeatureBranch($branch)
 	GitCheckout($branch)
 	GitRebase($featureBranch)
@@ -116,6 +116,7 @@ function GitkAll{
 }
 function GitHubClone([parameter(Mandatory=$true)]$project,[parameter()]$user = $env:GITUSERNAME ){
 	$repoPath = GithubPath $project $user
+	echo $repoPath
 	git clone $repoPath
 	cd $project
 	GitCheckout "-b" "feature" 
