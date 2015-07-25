@@ -126,7 +126,7 @@ function GitCheckoutFeature([parameter(Mandatory=$false)] $branch = "master") {
 	
 }
 function GitBranchExists([parameter(Mandatory=$true)] $branch)  {
-	(git rev-parse --verify $branch) > $null
+	git rev-parse --verify $branch > $null
 	IF( $LastExitCode -eq 0 ) { $true }
 	ELSE { $false }
 }

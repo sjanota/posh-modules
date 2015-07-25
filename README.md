@@ -9,6 +9,21 @@ $modulesRepo = "path/to/this/cloned/repo"
 $env:PSModulePath = $env:PsModulePath + ";$modulesRepo"
 ```
 
+You can check if your profile file exists. If following command returns True it means profile file exists
+```
+Test-Path $Profile
+```
+
+Envirpnmental variable ```$Profile``` contains path to your profile file. If it does not exists you can  create it with command:
+```
+New-Item -path $profile -type file -force
+```
+
+Before using modules it may be needed to enable script execution. Following does exactly that:
+```
+Set-ExecutionPolicy RemoteSigned
+```
+
 ## GitOperations module
 
 ### Installation
