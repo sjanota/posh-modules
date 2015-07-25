@@ -11,6 +11,10 @@ Set-Alias gcuser	SetCommitname
 Set-Alias ghclone	GitHubClone
 Set-Alias gignore	GitIgnore
 Set-Alias ginit		GitFullInit
+Set-Alias gsub		GitSubmoduleUpdate
+Set-Alias gsubi		GitSubmoduleInit
+Set-Alias gresh		GitResetHard
+Set-Alias gcf		GitCheckoutFeature
 
 # Variables
 $gitDefaultUsername = "gituser"
@@ -53,7 +57,7 @@ function GitSetOrigin{
 }
 
 # Complex Git scenarios
-function GitFullCommit([parameter(Mandatory=$true)]$message, [parameter(Mandatory=$true)]$branch = "master"){	
+function GitFullCommit([parameter(Mandatory=$true)]$message, [parameter(Mandatory=$false)]$branch = "master"){	
 	$featureBranch = GetFeatureBranch($branch)
 	$username = $env:COMMITUSERNAME
 	GitCheckout($featureBranch)
@@ -108,6 +112,30 @@ if($env:COMMITUSERNAME -eq $null){
 }
 
 # Others
+function GitSubmoduleUpdate {
+	git submodule update --recursive
+}
+function GitCheckoutFeature([parameter(Mandatory=$false)] $branch = "master") {
+	$featureBranch = GetFeatureBranch $branch
+	$featureExists = GitBranchExists $featureBranch
+	IF ( $featureExists -eq $true ) {
+		GitCheckout $featureBranch
+	} ELSE {
+		GitCheckout -b $featureBranch
+	}
+	
+}
+function GitBranchExists([parameter(Mandatory=$true)] $branch)  {
+	(git rev-parse --verify $branch) > $null
+	IF( $LastExitCode -eq 0 ) { $true }
+	ELSE { $false }
+}
+function GitSubmoduleInit {
+	git submodule update --init --recursive
+}
+function GitResetHard {
+	git reset HEAD --hard
+}
 function GitAddAll{
 	GitAdd("--all")
 }
