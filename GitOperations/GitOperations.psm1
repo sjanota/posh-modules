@@ -15,9 +15,11 @@ Set-Alias gsub		GitSubmoduleUpdate
 Set-Alias gsubi		GitSubmoduleInit
 Set-Alias gresh		GitResetHard
 Set-Alias gcf		GitCheckoutFeature
+Set-Alias gfsuffix  SetFeatureSuffix
 
 # Variables
 $gitDefaultUsername = "gituser"
+$gitDefaultFeatureSuffix = "feature"
 
 # Basic Git operations
 function GitStatus{
@@ -98,6 +100,12 @@ function SetUsername{
 	echo("Setting GITUSERNAME to : $username")
 	[Environment]::SetEnvironmentVariable("GITUSERNAME", $username, "User")
 }
+function SetFeatureSuffix{
+	$suffix = $args[0]
+	if($suffix -eq "-r"){ $suffix = $gitDefaultFeatureSuffix }
+	echo("Setting GITFEATURESUFFIX to : $suffix")
+	[Environment]::SetEnvironmentVariable("GITFEATURESUFFIX", $suffix, "User")
+}
 function SetCommitname{
 	$username = "${args[0]}: "
 	if($username -eq "-r"){ $username = "" }
@@ -106,6 +114,9 @@ function SetCommitname{
 }
 if($env:GITUSERNAME -eq $null){
 	SetUsername($gitDefaultUsername)
+}
+if($env:GITFEATURESUFFIX -eq $null){
+	SetFeatureSuffix($gitDefaultFeatureSuffix)
 }
 if($env:COMMITUSERNAME -eq $null){
 	SetCommitname("")
@@ -153,8 +164,8 @@ function GitHubClone([parameter(Mandatory=$true)]$project,[parameter()]$user = $
 
 # Helpers
 function GetFeatureBranch($branch = "master"){
-	$featureBranch = "$branch-feature"
-	if($branch -eq "master"){ $featureBranch = "feature" }
+	$featureBranch = "$branch-${env:GITFEATURESUFFIX}"
+	if($branch -eq "master"){ $featureBranch = "${env:GITFEATURESUFFIX}" }
 	$featureBranch
 }
 function GithubPath($project,$user){
