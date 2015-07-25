@@ -6,11 +6,10 @@ Set-Alias gcp 		GitCommitPush
 Set-Alias gch		GitCheckout
 Set-Alias gcom		GitFullCommit
 Set-Alias gup		GitUpdate
-Set-Alias guser		SetUsername
-Set-Alias gcuser	SetCommitname
-Set-Alias ghclone	GitHubClone
+Set-Alias guname	SetUsername
+Set-Alias gumail	SetUserEmail
+Set-Alias gcname	SetCommitname
 Set-Alias gignore	GitIgnore
-Set-Alias ginit		GitFullInit
 Set-Alias gsub		GitSubmoduleUpdate
 Set-Alias gsubi		GitSubmoduleInit
 Set-Alias gresh		GitResetHard
@@ -82,23 +81,17 @@ function GitUpdate($branch = "master"){
 	GitRebase($branch)
 	GitStash("pop")
 }
-function GitFullInit([parameter(Mandatory=$true)]$repoName, [parameter()]$user = $env:GITUSERNAME ){
-	$readme = "README.md"
-	GitInit
-	echo("$repoName") | Out-File $readme
-	GitAdd $readme
-	GitCommit "-m" "Initial commit"
-	GitCheckout "-b" "feature"
-	$origin = GithubPath $repoName $user
-	GitSetOrigin $origin
-}
 
 # Git configuration
+function SetUserEmail{
+	$email = $args[0]
+	echo("Setting user.email to : $email")
+	git config --global user.email $email
+}
 function SetUsername{
 	$username = $args[0]
-	if($username -eq "-r"){ $username = $gitDefaultUsername }
-	echo("Setting GITUSERNAME to : $username")
-	[Environment]::SetEnvironmentVariable("GITUSERNAME", $username, "User")
+	echo("Setting user.name to : $username")
+	git config --global user.name $username
 }
 function SetFeatureSuffix{
 	$suffix = $args[0]
@@ -112,9 +105,7 @@ function SetCommitname{
 	echo("Setting COMMITUSERNAME to : $username")
 	[Environment]::SetEnvironmentVariable("COMMITUSERNAME", $username, "User")
 }
-if($env:GITUSERNAME -eq $null){
-	SetUsername($gitDefaultUsername)
-}
+
 if($env:GITFEATURESUFFIX -eq $null){
 	SetFeatureSuffix($gitDefaultFeatureSuffix)
 }

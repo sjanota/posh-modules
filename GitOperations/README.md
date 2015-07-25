@@ -6,15 +6,23 @@ GitOperations PowerShell module
 GitOperations uses environmetal varaibles to set following properties:
 
  * GITCOMMITNAME - Can be set via gcuser command. If supplied all commit messages will be prefixed with '$GITCOMMITNAME: '
+ * GITFEAUTRESUFFIX - Cen be set via gfsuffix command. It is suffix that will be applied to feature branches.
 
 ## Defined aliases
 
  * $branch defaults to master 
+ * feature branch suffix defaults to 'feature'
 
 <table>
 	<tr><td>Alias</td><td>Description</td></tr>	
 
-	<tr><td>gcuser $username</td><td>Sets GITCOMMITNAME. If '-r' is passed instead its value is uset</td></tr>
+	<tr><td>gcname $username</td><td>Sets GITCOMMITNAME. If '-r' is passed instead its value is uset</td></tr>
+
+	<tr><td>guname $username</td><td>Sets user.name in config</td></tr>
+
+	<tr><td>gumail $username</td><td>Sets user.email in config</td></tr>
+
+	<tr><td>gfsuffix $username</td><td>Setsfeature branch suffix</td></tr>
 
 	<tr><td>gs</td><td>git status</td></tr>
 
@@ -23,8 +31,6 @@ GitOperations uses environmetal varaibles to set following properties:
 	<tr><td>gaa</td><td>git add --all</td></tr>
 
 	<tr><td>gitka</td><td>gitk --all</td></tr>
-
-	<tr><td>ga $args</td><td>git add $args</td></tr>
 
 	<tr><td>gcf ($branch)</td><td>Checkout feature branch for specified branch (feature for master or in format {branch}-feature for any other branch). Create if absent
 
