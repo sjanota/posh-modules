@@ -30,7 +30,7 @@ GitOperations uses environmetal varaibles to set following properties:
 
 	<tr><td>gcom $message ($branch)</td><td>Commits all staged changes with $message (with prefix if commitname specified) on feature branch for specified branch</td></tr>
 
-	<tr><td>gcp $message ($branch)</td><td>Acts like gcom, but also rebase $branch onto feature and push changes to origin</td></tr>
+	<tr><td>gcp ($message) ($branch)</td><td>Acts like gcom, but also rebase $branch onto feature and push changes to origin. If message is not specified only push will be performed</td></tr>
 
 	<tr><td>gch $args</td><td>git checkout $args</td></tr>
 
