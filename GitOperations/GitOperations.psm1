@@ -61,7 +61,7 @@ function GitFullCommit([parameter(Mandatory=$true)]$message, [parameter(Mandator
 	$featureBranch = GetFeatureBranch($branch)
 	$username = $env:COMMITUSERNAME
 	GitCheckout($featureBranch)
-	GitCommit "-m" "${username}: $message"
+	GitCommit "-m" "${username}$message"
 }
 function GitCommitPush($message, $branch = "master"){
 	if($message -ne $null){ GitFullCommit $message $branch }
@@ -99,16 +99,16 @@ function SetUsername{
 	[Environment]::SetEnvironmentVariable("GITUSERNAME", $username, "User")
 }
 function SetCommitname{
-	$username = $args[0]
-	if($username -eq "-r"){ $username = $gitDefaultUsername }
+	$username = "${args[0]}: "
+	if($username -eq "-r"){ $username = "" }
 	echo("Setting COMMITUSERNAME to : $username")
 	[Environment]::SetEnvironmentVariable("COMMITUSERNAME", $username, "User")
 }
 if($env:GITUSERNAME -eq $null){
-	Set-Username($gitDefaultUsername)
+	SetUsername($gitDefaultUsername)
 }
 if($env:COMMITUSERNAME -eq $null){
-	Set-Commitname($gitDefaultUsername)
+	SetCommitname("")
 }
 
 # Others
